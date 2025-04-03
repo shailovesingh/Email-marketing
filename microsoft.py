@@ -133,15 +133,18 @@ def send_followup(recipient_email, original_msg_id, person_name, company, follow
     msg['Subject'] = "Re: " + original_subject
     msg['In-Reply-To'] = original_msg_id
     msg['References'] = original_msg_id
-    
+
     text_body, html_body = spin_email_template(person_name, company, is_followup=True, followup_number=followup_number)
     part1 = MIMEText(text_body, 'plain')
     part2 = MIMEText(html_body, 'html')
     msg.attach(part1)
     msg.attach(part2)
-    
+
     try:
-        with smtplib.SMTP_SSL(smtp_server, smtp_port, timeout=10) as server:
+        with smtplib.SMTP(smtp_server, smtp_port, timeout=10) as server:
+            server.ehlo()
+            server.starttls()
+            server.ehlo()
             server.login(sender_email, sender_password)
             server.sendmail(sender_email, recipient_email, msg.as_string())
             print(f"Follow-up #{followup_number} sent to {recipient_email}")
@@ -170,6 +173,8 @@ def followup_scheduler(recipient_email, original_msg_id, person_name, company,
                       sender_email, sender_password, smtp_server, smtp_port, original_subject)
     else:
         print(f"Reply received from {recipient_email}. No second follow-up sent.")
+
+
 
 def send_initial_email(row, sender_email, sender_password, smtp_server, smtp_port):
     """
