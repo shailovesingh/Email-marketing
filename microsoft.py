@@ -34,8 +34,8 @@ def spin_email_template(person_name, company, is_followup=False, followup_number
         f"Dear {person_name},"
     ]
     sentence1_options = [
-        "I noticed you've registered your domain. This is the start of establishing your online presence.",
-        "I see you booked your new domain. That’s an important step toward creating a reliable online presence.",
+        "I see you booked your new domain, marking an important step toward establishing a strong online presence.",
+        "I noticed you secured your new domain—an essential move toward building a reliable online identity.",
         "I noticed you secured your domain. This marks the beginning of your online journey."
     ]
     sentence2_options = [
@@ -44,7 +44,7 @@ def spin_email_template(person_name, company, is_followup=False, followup_number
         "Recently, we’ve helped several businesses develop websites, enhance their search performance, and improve their social media efforts. Imagine a digital solution that aligns with your business needs."
     ]
     sentence3_options = [
-        "I’m reaching out directly to explain how we can work together. Please take a look at the short video I recorded, which describes our approach.",
+        "I’m contacting you personally to share how our services may be of benefit. Please take a moment to watch the brief video I recorded, which explains our approach.",
         "I’m contacting you directly to share more about our services. I’ve prepared a brief video introduction outlining our process.",
         "I’m reaching out personally to share how our services may help. I’ve recorded a short video to introduce myself and explain our approach."
     ]
