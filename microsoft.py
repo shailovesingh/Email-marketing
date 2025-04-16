@@ -25,6 +25,12 @@ SENDER_OPTIONS = [
         "sender_password": "Fdg@9874#",
         "smtp_server":     "smtp.office365.com",
         "smtp_port":       587
+    },
+    {
+        "sender_email":    "neal@filldesignprojects.website",
+        "sender_password": "Fdg@9874#",
+        "smtp_server":     "smtp.office365.com",
+        "smtp_port":       587
     }
 ]
 
