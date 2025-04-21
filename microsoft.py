@@ -44,14 +44,14 @@ def spin_email_template(person_name, company, is_followup=False, followup_number
         f"Dear {person_name},"
     ]
     sentence1_options = [
-        "I see you booked your new domain, marking an important step toward establishing a strong online presence.",
-        "I noticed you secured your new domain—an essential move toward building a reliable online identity.",
-        "I noticed you secured your domain. This marks the beginning of your online journey."
+        "We have worked with over 49+ companies in the past 6 Months.",
+        "In the last half‑year, we’ve helped more than 49 companies achieve their goals.",
+        "Over the past six months, we’ve collaborated with over 49 organizations."
     ]
     sentence2_options = [
-        "In the past six months, we’ve worked with several businesses to build websites, improve their search performance, and refine their social media presence. Consider how a well-designed digital platform can support your goals.",
-        "Over the past six months, we’ve assisted a number of companies with website design, search optimization, and social media strategy. Think about how a customized digital solution could benefit your business.",
-        "Recently, we’ve helped several businesses develop websites, enhance their search performance, and improve their social media efforts. Imagine a digital solution that aligns with your business needs."
+        "Think there might be a fun way to combine forces—nothing formal, just a quick brainstorm. Got 10 minutes next week for a quick meeting? Let me know what your calendar looks like!",
+        "I’d love to brainstorm together—nothing formal, just a quick chat. Got 10 minutes next week? Let me know what your calendar looks like!",
+        "Think we could have a fun brainstorm—no agenda, just 10 minutes to explore ideas. What time next week works for you?"
     ]
     sentence3_options = [
         "I’m contacting you personally to share how our services may be of benefit. Please take a moment to watch the brief video I recorded, which explains our approach.",
@@ -66,7 +66,7 @@ def spin_email_template(person_name, company, is_followup=False, followup_number
     extra = f"\nThis is follow-up #{followup_number}. Just checking in regarding my previous email." \
             if is_followup and followup_number else ""
 
-    loom_link = "https://www.loom.com/share/1915f664b7f145f193d7b0fd6873ecb1"
+    loom_link = "https://www.loom.com/share/42b0600a660d4da7be729cfbb3fe1f64"
 
     text_body = f"""{greeting}
 
@@ -97,7 +97,7 @@ https://filldesigngroup.com/
     <div>
       <a href="{loom_link}">
         <img style="max-width:300px;"
-             src="https://cdn.loom.com/sessions/thumbnails/1915f664b7f145f193d7b0fd6873ecb1-12ee91ac978e3ba5-full-play.gif"
+             src="https://cdn.loom.com/sessions/thumbnails/42b0600a660d4da7be729cfbb3fe1f64-06d77ce33079aa2b-full-play.gif"
              alt="Watch Video">
       </a>
     </div>
