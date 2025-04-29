@@ -52,7 +52,7 @@ def spin_email_template(person_name, company, is_followup=False, followup_number
     extra = (f"\nThis is follow-up #{followup_number}. Just checking in regarding my previous email."
              if is_followup and followup_number else "")
 
-    loom_link = "https://www.loom.com/share/42b0600a660d4da7be729cfbb3fe1f64"
+    loom_link = "https://www.loom.com/share/35049856e0e447e8ada77a44a1297342"
 
     text_body = f"""{greeting}
 
@@ -83,7 +83,7 @@ https://filldesigngroup.com/
     <div>
       <a href="{loom_link}">
         <img style="max-width:300px;"
-             src="https://cdn.loom.com/sessions/thumbnails/42b0600a660d4da7be729cfbb3fe1f64-06d77ce33079aa2b-full-play.gif"
+             src="https://cdn.loom.com/sessions/thumbnails/35049856e0e447e8ada77a44a1297342-b9abd9c74a5b4e39-full-play.gif"
              alt="Watch Video">
       </a>
     </div>
