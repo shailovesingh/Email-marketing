@@ -7,34 +7,20 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import random
 
-# TESTING_MODE=True → 10 s delays; False → real delays (60 s between sends, 1 day follow‑ups)
+# TESTING_MODE=True → 10 s delays; False → real delays (60 s between sends, 1 day follow-ups)
 TESTING_MODE    = False
 INITIAL_GAP     = 10 if TESTING_MODE else 60      # seconds between initial emails
-FOLLOWUP_DELAY  = 10 if TESTING_MODE else 86400   # seconds (1 day) before each follow‑up
+FOLLOWUP_DELAY  = 10 if TESTING_MODE else 86400   # seconds (1 day) before each follow-up
 
-# Your sender options
-SENDER_OPTIONS = [
-    {
-        "sender_email":    "neal@filldesigngroup.net",
-        "sender_password": "Fdg@9874#",
-        "smtp_server":     "smtp.office365.com",
-        "smtp_port":       587
-    },
-    {
-        "sender_email":    "neal@filldesignprojects.com",
-        "sender_password": "Fdg@9874#",
-        "smtp_server":     "smtp.office365.com",
-        "smtp_port":       587
-    },
-    {
-        "sender_email":    "neal@filldesignprojects.website",
-        "sender_password": "Fdg@9874#",
-        "smtp_server":     "smtp.office365.com",
-        "smtp_port":       587
-    }
-]
+# Single sender configuration
+SENDER = {
+    "sender_email":    "neal@filldesigngroup.net",
+    "sender_password": "Fdg@9874#",
+    "smtp_server":     "smtp.office365.com",
+    "smtp_port":       587
+}
 
-# Bounded thread-pool for scheduling follow‑ups
+# Bounded thread-pool for scheduling follow-ups
 executor = ThreadPoolExecutor(max_workers=5)
 
 def spin_email_template(person_name, company, is_followup=False, followup_number=None):
@@ -44,14 +30,14 @@ def spin_email_template(person_name, company, is_followup=False, followup_number
         f"Dear {person_name},"
     ]
     sentence1_options = [
-        "We have worked with over 49+ companies in the past 6 Months.",
-        "In the last half‑year, we’ve helped more than 49 companies achieve their goals.",
-        "Over the past six months, we’ve collaborated with over 49 organizations."
+        "I see you booked your new domain, marking an important step toward establishing a strong online presence.",
+        "I noticed you secured your new domain—an essential move toward building a reliable online identity.",
+        "I noticed you secured your domain. This marks the beginning of your online journey."
     ]
     sentence2_options = [
-        "Think there might be a fun way to combine forces—nothing formal, just a quick brainstorm. Got 10 minutes next week for a quick meeting? Let me know what your calendar looks like!",
-        "I’d love to brainstorm together—nothing formal, just a quick chat. Got 10 minutes next week? Let me know what your calendar looks like!",
-        "Think we could have a fun brainstorm—no agenda, just 10 minutes to explore ideas. What time next week works for you?"
+        "In the past six months, we’ve worked with several businesses to build websites, improve their search performance, and refine their social media presence. Consider how a well-designed digital platform can support your goals.",
+        "Over the past six months, we’ve assisted a number of companies with website design, search optimization, and social media strategy. Think about how a customized digital solution could benefit your business.",
+        "Recently, we’ve helped several businesses develop websites, enhance their search performance, and improve their social media efforts. Imagine a digital solution that aligns with your business needs."
     ]
     sentence3_options = [
         "I’m contacting you personally to share how our services may be of benefit. Please take a moment to watch the brief video I recorded, which explains our approach.",
@@ -63,8 +49,8 @@ def spin_email_template(person_name, company, is_followup=False, followup_number
     sentence1 = random.choice(sentence1_options)
     sentence2 = random.choice(sentence2_options)
     sentence3 = random.choice(sentence3_options)
-    extra = f"\nThis is follow-up #{followup_number}. Just checking in regarding my previous email." \
-            if is_followup and followup_number else ""
+    extra = (f"\nThis is follow-up #{followup_number}. Just checking in regarding my previous email."
+             if is_followup and followup_number else "")
 
     loom_link = "https://www.loom.com/share/42b0600a660d4da7be729cfbb3fe1f64"
 
@@ -162,38 +148,36 @@ def send_email(to_addr, name, company, sender,
     return msg_id, msg['Subject']
 
 def followup_scheduler(to_addr, name, company, sender, orig_msg_id, orig_subject):
-    # Follow‑up #1
+    # Follow-up #1
     time.sleep(FOLLOWUP_DELAY)
     if not check_reply(to_addr):
         send_email(to_addr, name, company, sender, True, 1, orig_msg_id, orig_subject)
     else:
         return
-    # Follow‑up #2
+    # Follow-up #2
     time.sleep(FOLLOWUP_DELAY)
     if not check_reply(to_addr):
         send_email(to_addr, name, company, sender, True, 2, orig_msg_id, orig_subject)
 
 def send_emails(xlsx_path):
     df = pd.read_excel(xlsx_path, engine='openpyxl')
-    total = len(SENDER_OPTIONS)
 
-    for idx, row in df.iterrows():
+    for _, row in df.iterrows():
         company = row['company']
         name    = row['name']
         email   = row['email']
         print(f"Processing: {company} | {name} | {email}")
 
-        # Round‑robin sender selection
-        sender = SENDER_OPTIONS[idx % total]
-        msg_id, subject = send_email(email, name, company, sender)
+        # Always use the single SENDER
+        msg_id, subject = send_email(email, name, company, SENDER)
 
-        # Schedule follow‑ups via the thread‑pool
+        # Schedule follow-ups via the thread-pool
         executor.submit(
             followup_scheduler,
-            email, name, company, sender, msg_id, subject
+            email, name, company, SENDER, msg_id, subject
         )
 
-        # 60s gap between initials
+        # 60 s gap between initial emails
         time.sleep(INITIAL_GAP)
 
 if __name__ == "__main__":
