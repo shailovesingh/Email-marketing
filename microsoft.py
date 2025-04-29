@@ -14,7 +14,7 @@ FOLLOWUP_DELAY  = 10 if TESTING_MODE else 86400   # seconds (1 day) before each 
 
 # Single sender configuration
 SENDER = {
-    "sender_email":    "neal@filldesigngroup.net",
+    "sender_email":    "neal@filldesignprojects.website",
     "sender_password": "Fdg@9874#",
     "smtp_server":     "smtp.office365.com",
     "smtp_port":       587
