@@ -17,7 +17,7 @@ XLSX_PATH      = "test Email.xlsx"
 INITIAL_GAP    = 60                       # seconds between initial emails
 FOLLOWUP_DELAY = timedelta(days=1)        # 1 day
 SENDER = {
-    "sender_email":    "neal@filldesignprojects.com",
+    "sender_email":    "neal@filldesignprojects.website",
     "sender_password": "Fdg@9874#",
     "smtp_server":     "smtp.office365.com",
     "smtp_port":       587
